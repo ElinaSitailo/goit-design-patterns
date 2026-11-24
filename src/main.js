@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const User_1 = require("./models/User");
+const NotificationService_1 = require("./services/NotificationService");
+const Logger_1 = require("./services/Logger");
+const EmailNotification_1 = require("./services/EmailNotification");
+const SMSNotification_1 = require("./services/SMSNotification");
+const PushNotification_1 = require("./services/PushNotification");
+const user = new User_1.User("example@email.com", "+380123456789", "device-token-abc");
+const logger = new Logger_1.Logger();
+const notificationService = new NotificationService_1.NotificationService();
+notificationService.addChannel(new EmailNotification_1.EmailNotification(logger));
+notificationService.addChannel(new SMSNotification_1.SMSNotification(logger));
+notificationService.addChannel(new PushNotification_1.PushNotification(logger));
+notificationService.send(user, "Ваш платіж оброблено успішно!");
